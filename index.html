@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Digital AI Hub — Premium AI Subscriptions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+:root{
+  --bg:#02060f;--bg2:#040c18;--panel:#071222;--panel2:#0b1929;
+  --c1:#00c8ff;--c2:#a855f7;--c3:#f59e0b;--green:#22c55e;--wa:#25D366;
+  --text:#eaf4ff;--sub:#4e6a88;--card:#050f1c;
+  --edge:rgba(0,200,255,0.1);--edge2:rgba(0,200,255,0.22);
+  --glow1:0 0 50px rgba(0,200,255,0.18);--glow2:0 0 60px rgba(168,85,247,0.2);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--c1),var(--c2));border-radius:9px;}
+#cdot{width:8px;height:8px;background:var(--c1);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#cring{width:36px;height:36px;border:1.5px solid rgba(0,200,255,0.45);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.25s,height 0.25s,border-color 0.25s;}
+#pcv{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.45;}
+nav{position:fixed;top:0;width:100%;z-index:200;padding:16px 36px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,6,15,0.82);backdrop-filter:blur(24px);border-bottom:1px solid var(--edge);transition:padding 0.3s;}
+nav.sc{padding:10px 36px;}
+.logo{font-family:'Playfair Display',serif;font-weight:900;font-size:1.35rem;background:linear-gradient(120deg,var(--c1) 0%,#fff 45%,var(--c2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap;letter-spacing:-0.5px;}
+.logo em{font-style:italic;-webkit-text-fill-color:var(--c3);}
+.ncart{display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--edge2);border-radius:50px;padding:9px 20px;cursor:pointer;color:var(--text);font-family:'Outfit',sans-serif;font-size:0.88rem;font-weight:500;transition:all 0.3s;}
+.ncart:hover{border-color:var(--c1);box-shadow:var(--glow1);}
+.cpill{background:linear-gradient(135deg,var(--c1),var(--c2));color:#000;border-radius:50px;min-width:22px;height:22px;padding:0 6px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:0 24px;}
+.hbg{position:absolute;inset:0;background:url('https://i.ibb.co/prwY1NjF/ai-tools-banner-1.png') center/cover no-repeat;filter:brightness(0.25) saturate(0.7);animation:hzoom 20s ease-in-out infinite alternate;}
+@keyframes hzoom{from{transform:scale(1);}to{transform:scale(1.12);}}
+.hvign{position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 50%,transparent 25%,rgba(2,6,15,0.88) 100%);}
+.hlk1{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,255,0.11),transparent 65%);top:-120px;left:-120px;animation:da 14s ease-in-out infinite;}
+.hlk2{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,0.09),transparent 65%);bottom:-160px;right:-160px;animation:db 18s ease-in-out infinite;}
+@keyframes da{0%,100%{transform:translate(0,0);}50%{transform:translate(60px,40px);}}
+@keyframes db{0%,100%{transform:translate(0,0);}50%{transform:translate(-50px,-60px);}}
+.hcon{position:relative;z-index:2;max-width:780px;}
+.hbadge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(0,200,255,0.3);background:rgba(0,200,255,0.06);border-radius:50px;padding:8px 22px;color:var(--c1);font-size:0.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:32px;animation:ri 0.9s ease both;}
+.pdot{width:7px;height:7px;background:var(--c1);border-radius:50%;animation:pd 1.8s infinite;}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(0,200,255,0.6);}70%{box-shadow:0 0 0 9px rgba(0,200,255,0);}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6.5rem);font-weight:900;line-height:1.02;margin-bottom:12px;animation:ri 1s 0.15s ease both;}
+.hero h1 .l1{display:block;background:linear-gradient(135deg,#fff 30%,var(--c1) 75%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero h1 .l2{display:block;background:linear-gradient(135deg,var(--c2) 0%,var(--c3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;}
+.hsub{color:rgba(234,244,255,0.6);font-size:1.1rem;font-weight:300;line-height:1.75;max-width:520px;margin:24px auto 44px;animation:ri 1s 0.3s ease both;}
+.hsub strong{color:var(--text);font-weight:600;}
+.hbtns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:ri 1s 0.45s ease both;}
+@keyframes ri{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:translateY(0);}}
+.bpri{display:inline-flex;align-items:center;gap:10px;padding:15px 38px;border-radius:50px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 100%);color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:0.95rem;box-shadow:0 0 40px rgba(0,200,255,0.22);transition:transform 0.25s,box-shadow 0.25s;text-decoration:none;}
+.bpri:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 12px 55px rgba(0,200,255,0.42);}
+.bwa0{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border-radius:50px;border:1.5px solid rgba(34,197,94,0.4);background:rgba(34,197,94,0.07);color:var(--green);font-family:'Outfit',sans-serif;font-weight:600;font-size:0.95rem;cursor:pointer;text-decoration:none;transition:all 0.25s;}
+.bwa0:hover{background:rgba(34,197,94,0.15);transform:translateY(-4px);border-color:rgba(34,197,94,0.7);}
+.scht{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--sub);font-size:0.67rem;letter-spacing:2px;text-transform:uppercase;animation:sf 3s ease-in-out infinite;}
+.schl{width:1px;height:0;background:linear-gradient(var(--c1),transparent);animation:sl 2.5s ease-in-out infinite;}
+@keyframes sf{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(10px);}}
+@keyframes sl{0%{height:0;opacity:1;}100%{height:50px;opacity:0;}}
+.mq{overflow:hidden;background:var(--panel);border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);padding:13px 0;position:relative;z-index:1;}
+.mqt{display:flex;white-space:nowrap;animation:mqs 26s linear infinite;}
+.mqt:hover{animation-play-state:paused;}
+.mqi{display:inline-flex;align-items:center;gap:10px;padding:0 30px;color:var(--sub);font-size:0.8rem;font-weight:500;letter-spacing:1px;border-right:1px solid var(--edge);}
+.mqi span{color:var(--c1);font-size:0.6rem;}
+@keyframes mqs{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);background:var(--panel);border-bottom:1px solid var(--edge);}
+.st{padding:36px 20px;text-align:center;border-right:1px solid var(--edge);transition:background 0.3s;cursor:default;}
+.st:hover{background:var(--panel2);}
+.st:last-child{border-right:none;}
+.stn{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;background:linear-gradient(135deg,var(--c1),var(--c2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:8px;}
+.stl{color:var(--sub);font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;font-weight:500;}
+section{padding:100px 36px;position:relative;z-index:1;}
+.slbl{display:inline-flex;align-items:center;gap:8px;color:var(--c1);font-size:0.7rem;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:14px;}
+.slbl::before{content:'';width:24px;height:1px;background:var(--c1);}
+.stit{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.4rem);font-weight:900;line-height:1.08;background:linear-gradient(135deg,#fff 40%,rgba(234,244,255,0.55));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:14px;}
+.ssub{color:var(--sub);font-size:1rem;line-height:1.7;margin-bottom:60px;max-width:520px;}
+.tc{text-align:center;}.tc .ssub{margin-left:auto;margin-right:auto;}
+.rv{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.rv.vis{opacity:1;transform:translateY(0);}
+#products{background:var(--bg2);}
+.tw{overflow:hidden;}
+.tk{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:16px 6px 32px;-ms-overflow-style:none;scrollbar-width:none;}
+.tk::-webkit-scrollbar{display:none;}
+.pc{flex:0 0 278px;scroll-snap-align:start;background:var(--card);border:1px solid var(--edge);border-radius:24px;overflow:hidden;position:relative;transition:transform 0.4s cubic-bezier(0.2,0,0,1),box-shadow 0.4s,border-color 0.4s;}
+.pbg{position:absolute;inset:0;border-radius:24px;background:linear-gradient(135deg,rgba(0,200,255,0.04),rgba(168,85,247,0.04));opacity:0;transition:opacity 0.4s;pointer-events:none;}
+.pc:hover{transform:translateY(-12px) scale(1.01);box-shadow:0 30px 70px rgba(0,200,255,0.15),0 0 0 1px rgba(0,200,255,0.28);}
+.pc:hover .pbg{opacity:1;}
+.pc:hover .pi img{transform:scale(1.1);}
+.pbdg{position:absolute;top:13px;left:13px;z-index:3;font-size:0.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:50px;}
+.pbdg.popular{background:linear-gradient(135deg,var(--c1),#0ea5e9);color:#000;}
+.pbdg.new{background:linear-gradient(135deg,var(--green),#16a34a);color:#000;}
+.pbdg.hot{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#000;}
+.pi{width:100%;height:210px;overflow:hidden;background:linear-gradient(145deg,var(--panel2),var(--panel));display:flex;align-items:center;justify-content:center;}
+.pi img{width:100%;height:100%;object-fit:contain;padding:24px;transition:transform 0.5s cubic-bezier(0.2,0,0,1);}
+.pif{padding:22px;}
+.pn{font-family:'Playfair Display',serif;font-size:1.12rem;font-weight:700;margin-bottom:8px;}
+.pdesc{color:var(--sub);font-size:0.83rem;line-height:1.6;margin-bottom:20px;}
+.pft{display:flex;align-items:center;gap:8px;}
+.bwac{display:inline-flex;align-items:center;gap:7px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.32);border-radius:50px;padding:9px 15px;color:var(--green);font-family:'Outfit',sans-serif;font-weight:600;font-size:0.77rem;text-decoration:none;transition:all 0.25s;white-space:nowrap;}
+.bwac:hover{background:rgba(37,211,102,0.22);transform:scale(1.04);}
+.badd{flex:1;background:linear-gradient(135deg,var(--c1),var(--c2));border:none;border-radius:50px;padding:9px 14px;color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:0.77rem;cursor:pointer;transition:all 0.25s;white-space:nowrap;}
+.badd:hover{transform:scale(1.05);box-shadow:0 0 20px rgba(0,200,255,0.32);}
+.badd.added{background:linear-gradient(135deg,var(--green),#16a34a);}
+.tnav{display:flex;justify-content:center;gap:12px;margin-top:16px;}
+.tnav button{width:46px;height:46px;border-radius:50%;background:var(--panel2);border:1px solid var(--edge2);color:var(--c1);font-size:1.1rem;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;justify-content:center;}
+.tnav button:hover{background:var(--c1);color:#000;box-shadow:0 0 20px rgba(0,200,255,0.38);}
+#why{background:var(--bg);}
+.wg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;}
+.wc{background:var(--card);border:1px solid var(--edge);border-radius:22px;padding:32px 28px;position:relative;overflow:hidden;transition:transform 0.35s,border-color 0.35s,box-shadow 0.35s;}
+.wc::before{content:'';position:absolute;top:-60px;right:-60px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,255,0.07),transparent 70%);transition:transform 0.5s;}
+.wc:hover{transform:translateY(-6px);border-color:var(--edge2);box-shadow:var(--glow1);}
+.wc:hover::before{transform:scale(1.5);}
+.wiw{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(0,200,255,0.13),rgba(168,85,247,0.1));border:1px solid var(--edge2);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px;transition:transform 0.3s;}
+.wc:hover .wiw{transform:scale(1.1) rotate(-6deg);}
+.wc h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:10px;}
+.wc p{color:var(--sub);font-size:0.85rem;line-height:1.65;}
+#more{background:var(--bg2);overflow:hidden;}
+#more::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,0.06),transparent 65%);pointer-events:none;animation:brth 8s ease-in-out infinite;}
+@keyframes brth{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.15);}}
+.min{max-width:760px;margin:0 auto;text-align:center;position:relative;z-index:1;}
+.min .ssub{margin-bottom:40px;}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:50px;}
+.chip{padding:8px 20px;border-radius:50px;font-size:0.82rem;font-weight:500;cursor:default;border:1px solid var(--edge);background:var(--panel);color:var(--sub);transition:all 0.25s;}
+.chip:hover{border-color:var(--c1);color:var(--c1);background:rgba(0,200,255,0.06);}
+.chip.on{border-color:rgba(0,200,255,0.28);color:var(--c1);background:rgba(0,200,255,0.07);}
+.bwabig{display:inline-flex;align-items:center;gap:16px;padding:18px 48px;border-radius:50px;text-decoration:none;background:linear-gradient(135deg,#0d7a52,var(--wa),#16a34a);color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:1.05rem;box-shadow:0 8px 40px rgba(37,211,102,0.28);transition:transform 0.3s,box-shadow 0.3s;animation:ctap 3s infinite;}
+.bwabig:hover{transform:translateY(-5px);box-shadow:0 16px 60px rgba(37,211,102,0.5);}
+@keyframes ctap{0%,100%{box-shadow:0 8px 40px rgba(37,211,102,0.28);}50%{box-shadow:0 8px 60px rgba(37,211,102,0.55),0 0 0 6px rgba(37,211,102,0.08);}}
+.co{position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(8px);}
+.co.open{opacity:1;pointer-events:all;}
+.cd{position:fixed;top:0;right:-460px;width:min(460px,100vw);height:100vh;height:100dvh;background:var(--panel);border-left:1px solid var(--edge);z-index:301;transition:right 0.4s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;}
+.cd.open{right:0;}
+.cdh{padding:24px 28px;border-bottom:1px solid var(--edge);display:flex;align-items:center;justify-content:space-between;background:var(--panel2);}
+.cdh h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.2rem;}
+.cdc{width:38px;height:38px;border-radius:50%;background:var(--card);border:1px solid var(--edge);color:var(--text);font-size:1.15rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.cdc:hover{border-color:var(--c1);}
+.cdb{flex:1;overflow-y:auto;padding:20px 28px;}
+.cemp{text-align:center;color:var(--sub);margin-top:70px;line-height:1.8;font-size:0.95rem;}
+.cit{display:flex;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--edge);}
+.cit img{width:58px;height:58px;object-fit:contain;border-radius:14px;background:var(--card);padding:6px;}
+.cin{flex:1;}
+.cin-n{font-family:'Playfair Display',serif;font-weight:700;font-size:0.92rem;margin-bottom:4px;}
+.cin-p{color:var(--c3);font-size:0.85rem;font-weight:600;}
+.cdel{background:none;border:none;color:var(--sub);cursor:pointer;font-size:1.05rem;padding:6px;transition:color 0.2s;}
+.cdel:hover{color:#ef4444;}
+.cdf{padding:22px 28px;border-top:1px solid var(--edge);background:var(--panel2);}
+.cdt{display:flex;justify-content:space-between;margin-bottom:18px;font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;}
+.cdt span:last-child{color:var(--c3);}
+.bord{width:100%;padding:16px;background:linear-gradient(135deg,var(--c1),var(--c2));border:none;border-radius:14px;color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:opacity 0.2s,transform 0.2s;letter-spacing:0.5px;}
+.bord:hover{opacity:0.88;transform:translateY(-2px);}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,0.87);z-index:400;opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px);padding:20px;transition:opacity 0.35s;}
+.mo.open{opacity:1;pointer-events:all;}
+.mdl{background:var(--panel);border:1px solid var(--edge2);border-radius:28px;width:100%;max-width:500px;max-height:92vh;overflow-y:auto;padding:38px 32px;box-shadow:0 50px 120px rgba(0,0,0,0.6),var(--glow2);transform:scale(0.93) translateY(20px);transition:transform 0.4s cubic-bezier(0.2,0,0,1);}
+.mo.open .mdl{transform:scale(1) translateY(0);}
+.mdl h2{font-family:'Playfair Display',serif;font-weight:900;font-size:1.55rem;margin-bottom:6px;}
+.msub{color:var(--sub);font-size:0.88rem;margin-bottom:30px;line-height:1.6;}
+.sbox{background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:20px;margin-bottom:28px;}
+.sbox h3{font-size:0.7rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--c1);margin-bottom:16px;}
+.sr{display:flex;justify-content:space-between;font-size:0.86rem;padding:7px 0;border-bottom:1px solid var(--edge);}
+.sr:last-child{border:none;}
+.stot{display:flex;justify-content:space-between;font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;margin-top:14px;color:var(--c3);}
+.fgrp{margin-bottom:20px;}
+.fgrp label{display:block;font-size:0.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sub);margin-bottom:8px;}
+.fgrp input,.fgrp textarea{width:100%;background:var(--card);border:1px solid var(--edge);border-radius:12px;padding:14px 18px;color:var(--text);font-family:'Outfit',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.25s,box-shadow 0.25s;}
+.fgrp input:focus,.fgrp textarea:focus{border-color:var(--c1);box-shadow:0 0 0 3px rgba(0,200,255,0.1);}
+.fgrp textarea{resize:vertical;min-height:88px;}
+.mac{display:flex;gap:14px;margin-top:28px;}
+.bcnl{flex:1;padding:14px;background:var(--panel2);border:1px solid var(--edge);border-radius:14px;color:var(--sub);font-family:'Outfit',sans-serif;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.2s;}
+.bcnl:hover{border-color:var(--c1);color:var(--text);}
+.bsub{flex:2;padding:14px;background:linear-gradient(135deg,var(--c1),var(--c2));border:none;border-radius:14px;color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;transition:opacity 0.2s;letter-spacing:0.5px;}
+.bsub:hover{opacity:0.88;}
+.bsub:disabled{opacity:0.55;cursor:not-allowed;}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(18px);background:linear-gradient(135deg,var(--green),#16a34a);color:#fff;font-family:'Outfit',sans-serif;font-weight:600;padding:14px 30px;border-radius:50px;font-size:0.88rem;z-index:500;opacity:0;pointer-events:none;transition:all 0.35s;white-space:nowrap;box-shadow:0 6px 30px rgba(34,197,94,0.4);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.err{background:linear-gradient(135deg,#ef4444,#dc2626);box-shadow:0 6px 30px rgba(239,68,68,0.4);}
+.fwa{position:fixed;bottom:30px;left:28px;z-index:250;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#075E54,var(--wa));display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 6px 28px rgba(37,211,102,0.4);animation:wapls 3s ease-in-out infinite;transition:transform 0.25s;}
+.fwa:hover{transform:scale(1.14);}
+@keyframes wapls{0%,100%{box-shadow:0 6px 28px rgba(37,211,102,0.4);}50%{box-shadow:0 6px 42px rgba(37,211,102,0.72),0 0 0 10px rgba(37,211,102,0.1);}}
+footer{background:var(--bg);border-top:1px solid var(--edge);padding:60px 36px 40px;position:relative;z-index:1;}
+.fgrid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.fbrand p{color:var(--sub);font-size:0.88rem;line-height:1.75;margin-top:14px;max-width:300px;}
+.fcol h4{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;margin-bottom:18px;}
+.fcol a{display:block;color:var(--sub);text-decoration:none;font-size:0.86rem;margin-bottom:10px;transition:color 0.2s;}
+.fcol a:hover{color:var(--c1);}
+.fbot{max-width:1100px;margin:0 auto;padding-top:28px;border-top:1px solid var(--edge);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;color:var(--sub);font-size:0.82rem;}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr);}.fgrid{grid-template-columns:1fr 1fr;gap:32px;}.fbrand{grid-column:span 2;}}
+@media(max-width:640px){
+  nav{padding:12px 18px;}section{padding:70px 18px;}
+  .stats{grid-template-columns:1fr 1fr;}.st{padding:24px 14px;}.stn{font-size:2rem;}
+  .pc{flex:0 0 80vw;max-width:298px;}.pi{height:175px;}
+  .bwac,.badd{padding:8px 11px;font-size:0.74rem;}
+  .fgrid{grid-template-columns:1fr;}.fbrand{grid-column:auto;}
+  .wg{grid-template-columns:1fr 1fr;}
+  .hero h1{font-size:clamp(2.2rem,10vw,3.2rem);}
+  .bpri,.bwa0{padding:13px 22px;font-size:0.88rem;}
+  .bwabig{font-size:0.88rem;padding:15px 28px;}
+  .mdl{padding:28px 20px;}
+  #cdot,#cring{display:none;}body{cursor:auto;}
+}
+@media(max-width:400px){.wg{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div id="cdot"></div><div id="cring"></div>
+<canvas id="pcv"></canvas>
+
+<nav id="nb">
+  <div class="logo">Digital<em>AI</em> Hub</div>
+  <button class="ncart" onclick="openCart()">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    Cart <span class="cpill" id="cc">0</span>
+  </button>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hbg"></div><div class="hvign"></div>
+  <div class="hlk1"></div><div class="hlk2"></div>
+  <div class="hcon">
+    <div class="hbadge"><span class="pdot"></span>Premium AI Subscriptions</div>
+    <h1><span class="l1">Digital AI Hub</span><span class="l2">Pakistan's #1 Store</span></h1>
+    <p class="hsub">Your gateway to <strong>world-class AI tools</strong> — delivered fast, priced right, trusted by hundreds across Pakistan.</p>
+    <div class="hbtns">
+      <button class="bpri" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Explore Tools
+      </button>
+      <a class="bwa0" href="https://wa.me/923028914249" target="_blank">
+        <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.496.668 4.836 1.832 6.856L2 30l7.34-1.804A13.946 13.946 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.32 19.96c-.348-.176-2.06-1.016-2.38-1.132-.32-.116-.552-.176-.784.176-.232.348-.9 1.132-1.104 1.364-.204.232-.404.26-.752.088-.348-.176-1.468-.54-2.796-1.724-1.032-.92-1.728-2.056-1.932-2.404-.204-.348-.02-.536.152-.708.16-.156.348-.408.524-.612.176-.204.232-.348.348-.58.116-.232.06-.436-.028-.612-.088-.176-.784-1.892-1.076-2.592-.284-.68-.572-.588-.784-.596-.204-.008-.436-.012-.668-.012s-.612.088-.932.436c-.32.348-1.22 1.192-1.22 2.908s1.248 3.372 1.424 3.604c.176.232 2.456 3.748 5.948 5.256.832.36 1.48.576 1.984.736.836.268 1.596.228 2.196.14.672-.1 2.06-.844 2.352-1.66.292-.816.292-1.516.204-1.66-.088-.144-.32-.232-.668-.408z"/></svg>
+        Chat Now
+      </a>
+    </div>
+  </div>
+  <div class="scht"><div class="schl"></div>Scroll</div>
+</section>
+
+<div class="mq"><div class="mqt" id="mqt"></div></div>
+
+<div class="stats">
+  <div class="st rv"><div class="stn" data-target="500">0</div><div class="stl">Happy Customers</div></div>
+  <div class="st rv" style="transition-delay:0.1s"><div class="stn" data-target="20">0</div><div class="stl">AI Tools</div></div>
+  <div class="st rv" style="transition-delay:0.2s"><div class="stn">24/7</div><div class="stl">Support</div></div>
+  <div class="st rv" style="transition-delay:0.3s"><div class="stn">100%</div><div class="stl">Satisfaction</div></div>
+</div>
+
+<section id="products">
+  <div class="tc rv"><div class="slbl">Our Collection</div><h2 class="stit">Top AI Tools</h2><p class="ssub">Premium subscriptions handpicked for creators, developers &amp; businesses</p></div>
+  <div class="tw rv"><div class="tk" id="tk"></div></div>
+  <div class="tnav rv"><button onclick="slide(-1)">&#8592;</button><button onclick="slide(1)">&#8594;</button></div>
+</section>
+
+<section id="why">
+  <div class="tc rv"><div class="slbl">Why Choose Us</div><h2 class="stit">Built on Trust</h2><p class="ssub">Thousands of customers choose Digital AI Hub every month</p></div>
+  <div class="wg">
+    <div class="wc rv"><div class="wiw">&#9889;</div><h3>Instant Delivery</h3><p>Access within minutes of payment. No delays, no excuses — just results.</p></div>
+    <div class="wc rv" style="transition-delay:0.1s"><div class="wiw">&#128176;</div><h3>Best Prices</h3><p>Unbeatable subscription prices — guaranteed lowest rates in Pakistan.</p></div>
+    <div class="wc rv" style="transition-delay:0.2s"><div class="wiw">&#128272;</div><h3>100% Secure</h3><p>Verified seller, hundreds of 5-star reviews. Your trust is our business.</p></div>
+    <div class="wc rv" style="transition-delay:0.3s"><div class="wiw">&#127911;</div><h3>24/7 Support</h3><p>Always on WhatsApp — resolve any issue any time, day or night.</p></div>
+  </div>
+</section>
+
+<section id="more">
+  <div class="min">
+    <div class="rv"><div class="slbl">More Tools</div></div>
+    <h2 class="stit rv">Need Something Else?</h2>
+    <p class="ssub rv">We carry <strong style="color:var(--text)">20+ premium AI tools</strong> not listed here. Custom orders, bundles &amp; exclusive deals — just ask on WhatsApp.</p>
+    <div class="chips rv">
+      <span class="chip on">ChatGPT Plus</span><span class="chip">Midjourney</span>
+      <span class="chip on">Claude Pro</span><span class="chip">Adobe Firefly</span>
+      <span class="chip">Runway ML</span><span class="chip on">Gemini Advanced</span>
+      <span class="chip">Canva Pro</span><span class="chip">ElevenLabs</span>
+      <span class="chip on">Perplexity Pro</span><span class="chip">Pika Labs</span>
+      <span class="chip">Sora</span><span class="chip on">+ Many More</span>
+    </div>
+    <div class="rv">
+      <a class="bwabig" href="https://wa.me/923028914249?text=Hi!%20I%20want%20to%20know%20about%20more%20AI%20tools" target="_blank">
+        <svg width="26" height="26" viewBox="0 0 32 32" fill="white"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.496.668 4.836 1.832 6.856L2 30l7.34-1.804A13.946 13.946 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.32 19.96c-.348-.176-2.06-1.016-2.38-1.132-.32-.116-.552-.176-.784.176-.232.348-.9 1.132-1.104 1.364-.204.232-.404.26-.752.088-.348-.176-1.468-.54-2.796-1.724-1.032-.92-1.728-2.056-1.932-2.404-.204-.348-.02-.536.152-.708.16-.156.348-.408.524-.612.176-.204.232-.348.348-.58.116-.232.06-.436-.028-.612-.088-.176-.784-1.892-1.076-2.592-.284-.68-.572-.588-.784-.596-.204-.008-.436-.012-.668-.012s-.612.088-.932.436c-.32.348-1.22 1.192-1.22 2.908s1.248 3.372 1.424 3.604c.176.232 2.456 3.748 5.948 5.256.832.36 1.48.576 1.984.736.836.268 1.596.228 2.196.14.672-.1 2.06-.844 2.352-1.66.292-.816.292-1.516.204-1.66-.088-.144-.32-.232-.668-.408z"/></svg>
+        Contact Us on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fgrid">
+    <div class="fbrand">
+      <div class="logo" style="font-size:1.4rem;">Digital<em>AI</em> Hub</div>
+      <p>Pakistan's most trusted source for premium AI subscriptions. Fast, affordable, and always supported.</p>
+    </div>
+    <div class="fcol"><h4>Navigate</h4><a href="#products">Products</a><a href="#why">Why Us</a><a href="#more">More Tools</a></div>
+    <div class="fcol"><h4>Contact</h4><a href="mailto:wnot2418@gmail.com">wnot2418@gmail.com</a><a href="https://wa.me/923028914249" target="_blank">+92 302 8914249</a></div>
+  </div>
+  <div class="fbot"><span>&#169; 2025 Digital AI Hub &middot; All rights reserved</span><span>Made with &#9829; in Pakistan &#127477;&#127472;</span></div>
+</footer>
+
+<a class="fwa" href="https://wa.me/923028914249" target="_blank">
+  <svg width="28" height="28" viewBox="0 0 32 32" fill="white"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.496.668 4.836 1.832 6.856L2 30l7.34-1.804A13.946 13.946 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.32 19.96c-.348-.176-2.06-1.016-2.38-1.132-.32-.116-.552-.176-.784.176-.232.348-.9 1.132-1.104 1.364-.204.232-.404.26-.752.088-.348-.176-1.468-.54-2.796-1.724-1.032-.92-1.728-2.056-1.932-2.404-.204-.348-.02-.536.152-.708.16-.156.348-.408.524-.612.176-.204.232-.348.348-.58.116-.232.06-.436-.028-.612-.088-.176-.784-1.892-1.076-2.592-.284-.68-.572-.588-.784-.596-.204-.008-.436-.012-.668-.012s-.612.088-.932.436c-.32.348-1.22 1.192-1.22 2.908s1.248 3.372 1.424 3.604c.176.232 2.456 3.748 5.948 5.256.832.36 1.48.576 1.984.736.836.268 1.596.228 2.196.14.672-.1 2.06-.844 2.352-1.66.292-.816.292-1.516.204-1.66-.088-.144-.32-.232-.668-.408z"/></svg>
+</a>
+
+<div class="co" id="co" onclick="closeCart()"></div>
+<div class="cd" id="cd">
+  <div class="cdh"><h2>&#128722; Your Cart</h2><button class="cdc" onclick="closeCart()">&#10005;</button></div>
+  <div class="cdb" id="cdb"></div>
+  <div class="cdf">
+    <div class="cdt"><span>Total</span><span id="cdt2">PKR 0</span></div>
+    <button class="bord" onclick="openOrder()">Place Order &#8594;</button>
+  </div>
+</div>
+
+<div class="mo" id="mo">
+  <div class="mdl">
+    <h2>Complete Your Order</h2>
+    <p class="msub">Fill in your details and we'll confirm right away.</p>
+    <div class="sbox"><h3>Order Summary</h3><div id="ms"></div><div class="stot"><span>Total</span><span id="mt">PKR 0</span></div></div>
+    <div class="fgrp"><label>Full Name *</label><input type="text" id="fn" placeholder="Your full name"/></div>
+    <div class="fgrp"><label>Phone Number *</label><input type="tel" id="fp" placeholder="+92 300 0000000"/></div>
+    <div class="fgrp"><label>Email (optional)</label><input type="email" id="fe" placeholder="you@example.com"/></div>
+    <div class="fgrp"><label>Notes</label><textarea id="fnt" placeholder="Any special instructions..."></textarea></div>
+    <div class="mac"><button class="bcnl" onclick="closeOrder()">Cancel</button><button class="bsub" onclick="submitOrder()">Send Order &#128640;</button></div>
+  </div>
+</div>
+<div class="toast" id="tst"></div>
+
+<script>
+const WA='923028914249';
+const prods=[
+  {id:1,name:'HeyGen AI',badge:'popular',desc:'Studio-quality AI videos with hyper-realistic avatars in minutes.',price:4500,img:'https://i.ibb.co/kgrGTkMb/heygen-ai-logo-rounded-hd-free-png.webp'},
+  {id:2,name:'VEO 3',badge:'new',desc:"Google's most advanced AI video generation model.",price:6800,img:'https://i.ibb.co/zWgBVZNY/VEO-3-logo.webp'},
+  {id:3,name:'AI Suite Pro',badge:'',desc:'All-in-one AI productivity suite — write, create, and automate.',price:3200,img:'https://i.ibb.co/3YjSpsjr/fOtGXrA5iunaymKRbutHlaARoXwi7dnMNzRnLan6-2.jpg'},
+  {id:4,name:'Grok AI',badge:'hot',desc:'xAI Grok — real-time web access and advanced reasoning.',price:2000,img:'https://i.ibb.co/nMfXdVCs/2025-grok-logo-750.png'},
+  {id:5,name:'CapCut Pro',badge:'',desc:'AI-powered professional video editor for creators.',price:600,img:'https://i.ibb.co/5DQXnxH/00e02Ss3KiOLKE7Ivb8SQ0P-1.webp'}
+];
+let cart=[];
+
+// PARTICLES
+(()=>{
+  const cv=document.getElementById('pcv'),ctx=cv.getContext('2d');
+  let W,H;
+  const rsz=()=>{W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;};
+  rsz();window.addEventListener('resize',rsz);
+  const pts=Array.from({length:80},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.4+.3,h:Math.random()<.6?195:270}));
+  const draw=()=>{
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='hsla('+p.h+',100%,65%,.65)';ctx.fill();});
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<120){ctx.beginPath();ctx.strokeStyle='rgba(0,200,255,'+(1-d/120)*.12+')';ctx.lineWidth=.5;ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();}}
+    requestAnimationFrame(draw);
+  };
+  draw();
+})();
+
+// CURSOR
+const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function ar(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ar);})();
+document.addEventListener('mouseover',e=>{if(e.target.closest('a,button')){ring.style.width='54px';ring.style.height='54px';ring.style.borderColor='rgba(168,85,247,.65)';}});
+document.addEventListener('mouseout',e=>{if(e.target.closest('a,button')){ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(0,200,255,.45)';}});
+
+// NAVBAR
+window.addEventListener('scroll',()=>document.getElementById('nb').classList.toggle('sc',scrollY>60));
+
+// MARQUEE
+const mItems=['HeyGen AI','VEO 3','Grok AI','CapCut Pro','AI Suite Pro','ChatGPT Plus','Claude Pro','Midjourney','Gemini Advanced','Perplexity Pro','Runway ML','ElevenLabs'];
+let mh='';for(let i=0;i<2;i++)mItems.forEach(n=>{mh+='<span class="mqi"><span>&#10022;</span>'+n+'</span>';});
+document.getElementById('mqt').innerHTML=mh;
+
+// PRODUCTS
+function renderProds(){
+  document.getElementById('tk').innerHTML=prods.map(p=>`
+    <div class="pc">
+      <div class="pbg"></div>
+      ${p.badge?'<div class="pbdg '+p.badge+'">'+p.badge+'</div>':''}
+      <div class="pi"><img src="${p.img}" alt="${p.name}" loading="lazy"/></div>
+      <div class="pif">
+        <div class="pn">${p.name}</div>
+        <div class="pdesc">${p.desc}</div>
+        <div class="pft">
+          <a class="bwac" href="https://wa.me/${WA}?text=${encodeURIComponent('Hi! I am interested in '+p.name)}" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.496.668 4.836 1.832 6.856L2 30l7.34-1.804A13.946 13.946 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.32 19.96c-.348-.176-2.06-1.016-2.38-1.132-.32-.116-.552-.176-.784.176-.232.348-.9 1.132-1.104 1.364-.204.232-.404.26-.752.088-.348-.176-1.468-.54-2.796-1.724-1.032-.92-1.728-2.056-1.932-2.404-.204-.348-.02-.536.152-.708.16-.156.348-.408.524-.612.176-.204.232-.348.348-.58.116-.232.06-.436-.028-.612-.088-.176-.784-1.892-1.076-2.592-.284-.68-.572-.588-.784-.596-.204-.008-.436-.012-.668-.012s-.612.088-.932.436c-.32.348-1.22 1.192-1.22 2.908s1.248 3.372 1.424 3.604c.176.232 2.456 3.748 5.948 5.256.832.36 1.48.576 1.984.736.836.268 1.596.228 2.196.14.672-.1 2.06-.844 2.352-1.66.292-.816.292-1.516.204-1.66-.088-.144-.32-.232-.668-.408z"/></svg>
+            WhatsApp
+          </a>
+          <button class="badd" id="b${p.id}" onclick="addCart(${p.id})">+ Add to Cart</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function slide(d){document.getElementById('tk').scrollBy({left:d*305,behavior:'smooth'});}
+
+// CART
+function addCart(id){
+  const p=prods.find(x=>x.id===id),ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++;else cart.push({...p,qty:1});
+  updateCart();
+  const b=document.getElementById('b'+id);b.classList.add('added');b.textContent='✓ Added!';
+  setTimeout(()=>{b.classList.remove('added');b.textContent='+ Add to Cart';},2000);
+  showToast(p.name+' added!');
+}
+function remCart(id){cart=cart.filter(x=>x.id!==id);updateCart();}
+function updateCart(){
+  const n=cart.reduce((s,c)=>s+c.qty,0);document.getElementById('cc').textContent=n;
+  document.getElementById('cdb').innerHTML=cart.length?cart.map(c=>`
+    <div class="cit"><img src="${c.img}" alt="${c.name}"/>
+      <div class="cin">
+        <div class="cin-n">${c.name}${c.qty>1?' <small style="color:var(--c1)">x'+c.qty+'</small>':''}</div>
+        <div class="cin-p">PKR ${(c.price*c.qty).toLocaleString()}</div>
+      </div>
+      <button class="cdel" onclick="remCart(${c.id})">&#128465;</button>
+    </div>`).join(''):'<div class="cemp">Your cart is empty.<br/>Explore our AI tools! &#128640;</div>';
+  document.getElementById('cdt2').textContent='PKR '+cart.reduce((s,c)=>s+c.price*c.qty,0).toLocaleString();
+}
+function openCart(){document.getElementById('co').classList.add('open');document.getElementById('cd').classList.add('open');document.body.style.overflow='hidden';}
+function closeCart(){document.getElementById('co').classList.remove('open');document.getElementById('cd').classList.remove('open');document.body.style.overflow='';}
+
+// ORDER
+function openOrder(){
+  if(!cart.length){showToast('Cart is empty!','err');return;}
+  closeCart();
+  const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
+  document.getElementById('ms').innerHTML=cart.map(c=>'<div class="sr"><span>'+c.name+(c.qty>1?' x'+c.qty:'')+'</span><span>PKR '+(c.price*c.qty).toLocaleString()+'</span></div>').join('');
+  document.getElementById('mt').textContent='PKR '+total.toLocaleString();
+  document.getElementById('mo').classList.add('open');document.body.style.overflow='hidden';
+}
+function closeOrder(){document.getElementById('mo').classList.remove('open');document.body.style.overflow='';}
+
+emailjs.init('u8rjRhVRLMDPAN8Gr');
+async function submitOrder(){
+  const name=document.getElementById('fn').value.trim();
+  const phone=document.getElementById('fp').value.trim();
+  const email=document.getElementById('fe').value.trim();
+  const notes=document.getElementById('fnt').value.trim();
+  if(!name){showToast('Enter your name','err');return;}
+  if(!phone){showToast('Enter your phone','err');return;}
+  const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const items=cart.map(c=>'• '+c.name+(c.qty>1?' (x'+c.qty+')':'')+': PKR '+(c.price*c.qty).toLocaleString()).join('\n');
+  const btn=document.querySelector('.bsub');btn.textContent='Sending...';btn.disabled=true;
+  try{
+    await emailjs.send('service_jpwkoeq','template_pye52uq',{customer_name:name,customer_phone:phone,customer_email:email||'Not provided',items,total:'PKR '+total.toLocaleString(),notes:notes||'None'});
+    showToast('Order sent!');closeOrder();
+    const wa=encodeURIComponent('*New Order – Digital AI Hub*\n\n👤 Name: '+name+'\n📞 Phone: '+phone+'\n\n🛒 *Items:*\n'+items+'\n\n💰 *Total: PKR '+total.toLocaleString()+'*\n\n'+(notes?'📝 Notes: '+notes:''));
+    setTimeout(()=>{if(confirm('Email bhej diya!\nWhatsApp par bhi send karna hai?'))window.open('https://wa.me/'+WA+'?text='+wa,'_blank');},400);
+    cart=[];['fn','fp','fe','fnt'].forEach(id=>document.getElementById(id).value='');
+  }catch(e){showToast('Failed. Try again.','err');}
+  finally{btn.textContent='Send Order';btn.disabled=false;}
+  updateCart();
+}
+
+function showToast(m,t=''){const el=document.getElementById('tst');el.textContent=m;el.className='toast'+(t?' '+t:'');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3200);}
+
+// SCROLL REVEAL
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:0.1});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+// COUNTER
+const co2=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){const el=x.target,t=+el.dataset.target;if(!t)return;let n=0;const iv=setInterval(()=>{n=Math.min(n+Math.ceil(t/50),t);el.textContent=n+'+';if(n>=t)clearInterval(iv);},30);co2.unobserve(el);}});},{threshold:0.5});
+document.querySelectorAll('[data-target]').forEach(el=>co2.observe(el));
+
+renderProds();updateCart();
+</script>
+</body>
+</html>
