@@ -267,7 +267,7 @@ footer{background:var(--bg);border-top:1px solid var(--edge);padding:60px 36px 4
       <span class="chip on">ChatGPT Plus</span><span class="chip">Midjourney</span>
       <span class="chip on">Claude Pro</span><span class="chip">Adobe Firefly</span>
       <span class="chip">Runway ML</span><span class="chip on">Gemini Advanced</span>
-      <span class="chip">Canva Pro</span><span class="chip">ElevenLabs</span>
+      <span class="chip">Canva Pro</span><span class="chip on">ElevenLabs</span>
       <span class="chip on">Perplexity Pro</span><span class="chip">Pika Labs</span>
       <span class="chip">Sora</span><span class="chip on">+ Many More</span>
     </div>
@@ -323,11 +323,12 @@ footer{background:var(--bg);border-top:1px solid var(--edge);padding:60px 36px 4
 <script>
 const WA='923028914249';
 const prods=[
-  {id:1,name:'HeyGen AI',badge:'popular',desc:'Studio-quality AI videos with hyper-realistic avatars in minutes.',price:4500,img:'https://i.ibb.co/kgrGTkMb/heygen-ai-logo-rounded-hd-free-png.webp'},
-  {id:2,name:'VEO 3',badge:'new',desc:"Google's most advanced AI video generation model.",price:6800,img:'https://i.ibb.co/zWgBVZNY/VEO-3-logo.webp'},
+  {id:1,name:'HeyGen AI',badge:'popular',desc:'Studio-quality AI videos with hyper-realistic avatars in minutes.',price:1500,img:'https://i.ibb.co/kgrGTkMb/heygen-ai-logo-rounded-hd-free-png.webp'},
+  {id:2,name:'VEO 3',badge:'new',desc:"Google's most advanced AI video generation model.",price:2000,img:'https://i.ibb.co/zWgBVZNY/VEO-3-logo.webp'},
   {id:3,name:'AI Suite Pro',badge:'',desc:'All-in-one AI productivity suite — write, create, and automate.',price:3200,img:'https://i.ibb.co/3YjSpsjr/fOtGXrA5iunaymKRbutHlaARoXwi7dnMNzRnLan6-2.jpg'},
   {id:4,name:'Grok AI',badge:'hot',desc:'xAI Grok — real-time web access and advanced reasoning.',price:2000,img:'https://i.ibb.co/nMfXdVCs/2025-grok-logo-750.png'},
-  {id:5,name:'CapCut Pro',badge:'',desc:'AI-powered professional video editor for creators.',price:600,img:'https://i.ibb.co/5DQXnxH/00e02Ss3KiOLKE7Ivb8SQ0P-1.webp'}
+  {id:5,name:'CapCut Pro',badge:'',desc:'AI-powered professional video editor for creators.',price:600,img:'https://i.ibb.co/5DQXnxH/00e02Ss3KiOLKE7Ivb8SQ0P-1.webp'},
+  {id:6,name:'ElevenLabs',badge:'new',desc:'World-class AI voice generation — lifelike speech in any language.',price:3000,img:'https://i.ibb.co/5DQXnxH/00e02Ss3KiOLKE7Ivb8SQ0P-1.webp'}
 ];
 let cart=[];
 
@@ -359,7 +360,7 @@ document.addEventListener('mouseout',e=>{if(e.target.closest('a,button')){ring.s
 window.addEventListener('scroll',()=>document.getElementById('nb').classList.toggle('sc',scrollY>60));
 
 // MARQUEE
-const mItems=['HeyGen AI','VEO 3','Grok AI','CapCut Pro','AI Suite Pro','ChatGPT Plus','Claude Pro','Midjourney','Gemini Advanced','Perplexity Pro','Runway ML','ElevenLabs'];
+const mItems=['HeyGen AI','VEO 3','Grok AI','CapCut Pro','AI Suite Pro','ElevenLabs','ChatGPT Plus','Claude Pro','Midjourney','Gemini Advanced','Perplexity Pro','Runway ML'];
 let mh='';for(let i=0;i<2;i++)mItems.forEach(n=>{mh+='<span class="mqi"><span>&#10022;</span>'+n+'</span>';});
 document.getElementById('mqt').innerHTML=mh;
 
@@ -373,6 +374,7 @@ function renderProds(){
       <div class="pif">
         <div class="pn">${p.name}</div>
         <div class="pdesc">${p.desc}</div>
+        <div style="color:var(--c3);font-weight:700;font-size:1rem;margin-bottom:14px;font-family:'Playfair Display',serif;">PKR ${p.price.toLocaleString()}</div>
         <div class="pft">
           <a class="bwac" href="https://wa.me/${WA}?text=${encodeURIComponent('Hi! I am interested in '+p.name)}" target="_blank">
             <svg width="14" height="14" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.496.668 4.836 1.832 6.856L2 30l7.34-1.804A13.946 13.946 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.32 19.96c-.348-.176-2.06-1.016-2.38-1.132-.32-.116-.552-.176-.784.176-.232.348-.9 1.132-1.104 1.364-.204.232-.404.26-.752.088-.348-.176-1.468-.54-2.796-1.724-1.032-.92-1.728-2.056-1.932-2.404-.204-.348-.02-.536.152-.708.16-.156.348-.408.524-.612.176-.204.232-.348.348-.58.116-.232.06-.436-.028-.612-.088-.176-.784-1.892-1.076-2.592-.284-.68-.572-.588-.784-.596-.204-.008-.436-.012-.668-.012s-.612.088-.932.436c-.32.348-1.22 1.192-1.22 2.908s1.248 3.372 1.424 3.604c.176.232 2.456 3.748 5.948 5.256.832.36 1.48.576 1.984.736.836.268 1.596.228 2.196.14.672-.1 2.06-.844 2.352-1.66.292-.816.292-1.516.204-1.66-.088-.144-.32-.232-.668-.408z"/></svg>
